@@ -1,0 +1,17 @@
+package com.ddns.namesorter.service.impl;
+
+import com.ddns.namesorter.model.PersonName;
+import com.ddns.namesorter.service.NameSorterService;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class NameSorterServiceImpl implements NameSorterService {
+    public List<PersonName> sortNames(List<PersonName> names) {
+        return names.stream()
+                .sorted(Comparator.comparing(PersonName::getLastName)
+                        .thenComparing(p -> String.join(" ", p.getGivenNames())))
+                .collect(Collectors.toList());
+    }
+}
